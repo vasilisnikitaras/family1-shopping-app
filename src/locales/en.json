@@ -1,0 +1,10 @@
+{
+  "title": "Family Shopping List",
+  "placeholder": "Add product...",
+  "add": "Add",
+  "got": "Got it",
+  "delete": "Delete",
+  "empty": "Your list is empty.",
+  "quantity": "Quantity",
+  "select_store": "Select store"
+}

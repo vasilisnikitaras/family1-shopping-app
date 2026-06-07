@@ -1,0 +1,510 @@
+/* ===========================
+   BASE COUNTER
+   // FANENE FIX — Converted SCSS → CSS
+=========================== */
+
+/* Force-enable transitions in production */
+.store-list-wrapper,
+.store-list-wrapper * {
+  transition: all 0.3s ease !important;
+  will-change: opacity, transform, max-height;
+}
+
+.counter {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
+}
+
+.counter:hover {
+  border-color: var(--accent-border);
+}
+
+.counter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ===========================
+   HERO SECTION
+   // FANENE FIX — Converted nested SCSS → CSS
+=========================== */
+.hero {
+  position: relative;
+}
+
+.hero .base,
+.hero .framework,
+.hero .vite {
+  inset-inline: 0;
+  margin: 0 auto;
+}
+
+.hero .base {
+  width: 170px;
+  position: relative;
+  z-index: 0;
+}
+
+.hero .framework,
+.hero .vite {
+  position: absolute;
+}
+
+.hero .framework {
+  z-index: 1;
+  top: 34px;
+  height: 28px;
+  transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+    scale(1.4);
+}
+
+.hero .vite {
+  z-index: 0;
+  top: 107px;
+  height: 26px;
+  width: auto;
+  transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+    scale(0.8);
+}
+
+/* ===========================
+   PREMIUM FORM
+=========================== */
+.premium-form {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+/* ===========================
+   INPUTS + SELECT
+   // FANENE FIX — Unified styles
+=========================== */
+.premium-input,
+.premium-select {
+  flex: 1;
+  min-width: 180px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 15px;
+  transition: 0.25s ease;
+}
+
+.premium-input:focus,
+.premium-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+
+/* ===========================
+   BUTTONS
+   // FANENE FIX — Unified + Premium Hover
+=========================== */
+button {
+  cursor: pointer;
+  background: #6a4df5;
+  color: #fff;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+button:hover {
+  background: #7b5cff;
+  color: #ffffff;
+}
+
+/* ===========================
+   SELECT (GLOBAL)
+   // FANENE FIX — Removed white flash
+=========================== */
+select {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  transition: 0.25s ease;
+  cursor: pointer;
+}
+
+select:hover {
+  background: #5a3de5;
+  color: #fff;
+  border-color: #6a4df5;
+}
+
+/* ===========================
+   PREMIUM SELECT FINAL
+   // FANENE FIX — No white flash, stable hover
+=========================== */
+.premium-select {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: 0.25s ease;
+  cursor: pointer;
+}
+
+.premium-select:hover {
+  background: #5a3de5;
+  color: #ffffff;
+  border-color: #6a4df5;
+}
+
+.premium-select:focus {
+  outline: none !important;
+  background: #6a4df5 !important;
+  color: #ffffff !important;
+  border-color: #8368ff !important;
+  box-shadow: 0 0 0 2px #b9a6ff55;
+}
+
+/* ===========================
+   DARK THEME
+   // FANENE FIX — Unified + Clean
+=========================== */
+[data-theme="dark"] .premium-input,
+[data-theme="dark"] .premium-select {
+  background: #1c1c1c;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+[data-theme="dark"] .premium-select:hover {
+  background: #5a3de5;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .premium-select:focus {
+  background: #6a4df5 !important;
+  color: #ffffff !important;
+  border-color: #8368ff !important;
+}
+
+[data-theme="dark"] button {
+  background: #6a4df5;
+}
+
+[data-theme="dark"] button:hover {
+  background: #8368ff;
+}
+
+/* ===========================
+   MOBILE UI
+=========================== */
+.mobile-topbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-topbar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background: var(--bg2);
+    color: var(--text-h);
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    z-index: 9999;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mobile-content {
+    padding: 80px 16px 90px;
+  }
+
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    justify-content: space-around;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  aside {
+    display: none !important;
+  }
+}
+select:hover {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #2563eb;
+}
+select:hover {
+  background: #22c55e;
+  color: #fff;
+  border-color: #16a34a;
+}
+select:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #dc2626;
+}
+select:hover {
+  background: #8b5cf6; /* premium light purple */
+  color: #fff;
+  border-color: #7c3aed;
+}
+/* EDGE FIX — ΜΗΝ ΕΞΑΦΑΝΙΖΕΤΑΙ ΤΟ SELECT */
+select {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px;
+  padding: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+select:hover {
+  background: #8b5cf6 !important; /* premium light purple */
+  color: #fff !important;
+  border-color: #7c3aed !important;
+}
+/* EDGE FIX — STOP SELECT FROM DISAPPEARING */
+select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+select:hover {
+  background: #8b5cf6 !important;
+  color: #fff !important;
+  border-color: #7c3aed !important;
+}
+.store-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: var(--card);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.delete-store-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.store-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.store-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.store-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.delete-store-btn {
+  background: #c62828;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+
+.delete-store-btn:hover {
+  background: #b71c1c;
+  transform: scale(1.05);
+}
+.store-list-wrapper {
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+  max-height: 0;
+  opacity: 0;
+}
+
+.store-list-wrapper.open {
+  max-height: 600px; /* αρκετό για πολλά stores */
+  opacity: 1;
+}
+/* ⭐ Base hidden state for each store row */
+.store-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ⭐ When wrapper is open → animate rows */
+.store-list-wrapper.open .store-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ⭐ Stagger delays (iPhone-style) */
+.store-row:nth-child(1) { transition-delay: 0.05s; }
+.store-row:nth-child(2) { transition-delay: 0.10s; }
+.store-row:nth-child(3) { transition-delay: 0.15s; }
+.store-row:nth-child(4) { transition-delay: 0.20s; }
+.store-row:nth-child(5) { transition-delay: 0.25s; }
+.store-row:nth-child(6) { transition-delay: 0.30s; }
+.store-row:nth-child(7) { transition-delay: 0.35s; }
+.store-row:nth-child(8) { transition-delay: 0.40s; }
+.store-row:nth-child(9) { transition-delay: 0.45s; }
+.store-row:nth-child(10) { transition-delay: 0.50s; }
+.store-list-wrapper.open {
+  background: red !important;
+}
+/* ⭐ Wrapper slide animation */
+.store-list-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+.store-list-wrapper.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+/* ⭐ Base hidden state for each store row */
+.store-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ⭐ Delay stagger start until slide finishes */
+.store-list-wrapper.open .store-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ⭐ Stagger delays (start AFTER slide finishes) */
+.store-row:nth-child(1) { transition-delay: 0.30s; }
+.store-row:nth-child(2) { transition-delay: 0.35s; }
+.store-row:nth-child(3) { transition-delay: 0.40s; }
+.store-row:nth-child(4) { transition-delay: 0.45s; }
+.store-row:nth-child(5) { transition-delay: 0.50s; }
+.store-row:nth-child(6) { transition-delay: 0.55s; }
+.store-row:nth-child(7) { transition-delay: 0.60s; }
+.store-row:nth-child(8) { transition-delay: 0.65s; }
+.store-row:nth-child(9) { transition-delay: 0.70s; }
+.store-row:nth-child(10) { transition-delay: 0.75s; }
+.store-list-wrapper {
+  background: red !important;
+}
+.store-list-wrapper,
+.store-list-wrapper * {
+  transition: all 0.3s ease !important;
+}
+.store-list-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+.store-list-wrapper.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.store-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.store-list-wrapper.open .store-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.store-row:nth-child(1) { transition-delay: 0.30s; }
+.store-row:nth-child(2) { transition-delay: 0.35s; }
+.store-row:nth-child(3) { transition-delay: 0.40s; }
+.store-row:nth-child(4) { transition-delay: 0.45s; }
+.store-row:nth-child(5) { transition-delay: 0.50s; }
+.store-row:nth-child(6) { transition-delay: 0.55s; }
+.store-row:nth-child(7) { transition-delay: 0.60s; }
+.store-row:nth-child(8) { transition-delay: 0.65s; }
+.store-row:nth-child(9) { transition-delay: 0.70s; }
+.store-row:nth-child(10) { transition-delay: 0.75s; }
+.store-list-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+.store-list-wrapper.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.store-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.store-list-wrapper.open .store-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.store-row:nth-child(1) { transition-delay: 0.30s; }
+.store-row:nth-child(2) { transition-delay: 0.35s; }
+.store-row:nth-child(3) { transition-delay: 0.40s; }
+.store-row:nth-child(4) { transition-delay: 0.45s; }
+.store-row:nth-child(5) { transition-delay: 0.50s; }
+.store-row:nth-child(6) { transition-delay: 0.55s; }
+.store-row:nth-child(7) { transition-delay: 0.60s; }
+.store-row:nth-child(8) { transition-delay: 0.65s; }
+.store-row:nth-child(9) { transition-delay: 0.70s; }
+.store-row:nth-child(10) { transition-delay: 0.75s; }

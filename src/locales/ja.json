@@ -1,0 +1,10 @@
+{
+  "title": "家族の買い物リスト",
+  "placeholder": "商品を追加...",
+  "add": "追加",
+  "got": "完了",
+  "delete": "削除",
+  "empty": "リストは空です。",
+  "quantity": "数量",
+  "select_store": "店舗を選択"
+}

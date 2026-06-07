@@ -1,0 +1,10 @@
+{
+  "title": "Lista della spesa familiare",
+  "placeholder": "Aggiungi prodotto...",
+  "add": "Aggiungi",
+  "got": "Preso",
+  "delete": "Elimina",
+  "empty": "La tua lista è vuota.",
+  "quantity": "Quantità",
+  "select_store": "Seleziona negozio"
+}

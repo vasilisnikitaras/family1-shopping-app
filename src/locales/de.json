@@ -1,0 +1,10 @@
+{
+  "title": "Familieneinkaufsliste",
+  "placeholder": "Produkt hinzufügen...",
+  "add": "Hinzufügen",
+  "got": "Erledigt",
+  "delete": "Löschen",
+  "empty": "Ihre Liste ist leer.",
+  "quantity": "Menge",
+  "select_store": "Geschäft auswählen"
+}

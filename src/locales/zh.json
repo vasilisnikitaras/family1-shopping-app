@@ -1,0 +1,10 @@
+{
+  "title": "家庭购物清单",
+  "placeholder": "添加商品...",
+  "add": "添加",
+  "got": "已拿到",
+  "delete": "删除",
+  "empty": "你的清单是空的。",
+  "quantity": "数量",
+  "select_store": "选择商店"
+}

@@ -1,0 +1,734 @@
+/* Force-enable transitions in production */
+.store-list-wrapper,
+.store-list-wrapper * {
+  transition: all 0.3s ease !important;
+  will-change: opacity, transform, max-height;
+}
+
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+/* FORM WRAPPER */
+.premium-form {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+/* INPUTS */
+.premium-input,
+.premium-select {
+  flex: 1;
+  min-width: 180px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 15px;
+  transition: 0.25s ease;
+}
+
+.premium-input:focus,
+.premium-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+
+/* BUTTON */
+.premium-btn {
+  padding: 12px 20px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.premium-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --card: #f5f5f5;
+}
+
+[data-theme="dark"] {
+  --bg: #0f0f0f;
+  --text: #f1f1f1;
+  --card: #1a1a1a;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.25s ease;
+}
+[data-theme="dark"] .premium-input,
+[data-theme="dark"] .premium-select {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+[data-theme="dark"] .premium-input::placeholder {
+  color: #bbb;
+}
+/* ===========================
+   DARK MODE FIX — PREMIUM
+=========================== */
+
+[data-theme="dark"] .premium-input,
+[data-theme="dark"] .premium-select {
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+[data-theme="dark"] .premium-input::placeholder {
+  color: #bbbbbb;
+}
+
+[data-theme="dark"] .premium-btn {
+  background-color: #6a4df5;
+  color: white;
+  border: none;
+}
+
+[data-theme="dark"] .premium-btn:hover {
+  background-color: #8368ff;
+}
+
+[data-theme="dark"] .premium-select option {
+  background-color: #1c1c1c;
+  color: #ffffff;
+}
+.premium-ui {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 12px;
+}
+[data-theme="dark"] .premium-input,
+[data-theme="dark"] .premium-select {
+  background:#1c1c1c;
+  color:#fff;
+  border:1px solid #444;
+}
+[data-theme="dark"] .premium-btn {
+  background:#6a4df5;
+  color:#fff;
+}
+[data-theme="dark"] .premium-ui,
+[data-theme="dark"] .premium-ui * {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .shopping-item span {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .shopping-item {
+  border-bottom: 1px solid #444 !important;
+}
+/* ----------------------------- */
+/* MOBILE TOP BAR                */
+/* ----------------------------- */
+
+.mobile-topbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-topbar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background: var(--bg2);
+    color: var(--text-h);
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    z-index: 9999;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+/* ----------------------------- */
+/* MOBILE CONTENT AREA           */
+/* ----------------------------- */
+
+.mobile-content {
+  padding: 25px;
+}
+
+@media (max-width: 768px) {
+  .mobile-content {
+    padding: 80px 16px 90px; /* space for top + bottom bars */
+  }
+}
+
+/* ----------------------------- */
+/* MOBILE BOTTOM NAV             */
+/* ----------------------------- */
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    justify-content: space-around;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .mobile-nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 6px;
+    opacity: 0.8;
+    transition: 0.2s;
+  }
+
+  .mobile-nav a:hover {
+    opacity: 1;
+  }
+}
+
+/* ----------------------------- */
+/* HIDE SIDEBAR ON MOBILE        */
+/* ----------------------------- */
+
+@media (max-width: 768px) {
+  aside {
+    display: none !important;
+  }
+}
+button:hover {
+  cursor: pointer;
+  color: #fff; /* κρατάει το άσπρο κείμενο */
+}
+
+button {
+  cursor: pointer;
+}
+button:hover {
+  background: #7a5fff;
+  transition: 0.2s ease;
+}
+button {
+  cursor: pointer;
+  color: #fff;
+  background: #6a4df5;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+button:hover {
+  background: #7b5cff; /* πιο φωτεινό μωβ */
+  color: #ffffff;      /* κρατάει το άσπρο κείμενο */
+}
+button {
+  cursor: pointer;
+  background: #6a4df5;
+  color: #fff;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #5a3de5; /* πιο σκούρο μωβ για να φαίνεται το χέρι */
+}
+select {
+  background: var(--bg2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+select:hover {
+  background: #5a3de5; /* premium dark purple hover */
+  color: #fff;         /* άσπρο κείμενο για τέλεια αντίθεση */
+  border-color: #6a4df5;
+}
+/* ===========================
+   FANENE FIX — SELECT STYLING
+   Works for LIGHT + DARK theme
+=========================== */
+
+.premium-select {
+  background: var(--card); /* σωστό background στο light */
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: 0.25s ease;
+}
+
+/* Hover */
+.premium-select:hover {
+  background: #5a3de5;   /* premium purple */
+  color: #fff;            /* φαίνεται τέλεια */
+  border-color: #6a4df5;
+}
+
+/* Focus */
+.premium-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+
+/* DARK THEME FIX */
+[data-theme="dark"] .premium-select {
+  background: #1c1c1c;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+[data-theme="dark"] .premium-select:hover {
+  background: #5a3de5;
+  color: #fff;
+}
+/* ===========================
+   FANENE FIX — BUTTON HOVER
+   Premium + Visible + Safe
+=========================== */
+
+button:hover {
+  background: #7b5cff;   /* premium bright purple */
+  color: #ffffff;        /* FIX: το κείμενο μένει άσπρο, δεν εξαφανίζεται */
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+/* ============================================
+   FANENE FIX — REMOVE WHITE FLASH ON SELECT
+   No more white background on hover or focus
+============================================ */
+
+.premium-select {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: 0.25s ease;
+  cursor: pointer;
+}
+
+/* HOVER — stays purple, no white flash */
+.premium-select:hover {
+  background: #5a3de5;
+  color: #ffffff;
+  border-color: #6a4df5;
+}
+
+/* FOCUS — FIX: remove browser white highlight */
+.premium-select:focus {
+  outline: none !important;          /* remove white ring */
+  background: #6a4df5 !important;    /* stable purple */
+  color: #ffffff !important;         /* visible text */
+  border-color: #8368ff !important;
+  box-shadow: 0 0 0 2px #b9a6ff55;   /* premium glow */
+}
+
+/* DARK THEME */
+[data-theme="dark"] .premium-select {
+  background: #1c1c1c;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+[data-theme="dark"] .premium-select:hover {
+  background: #5a3de5;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .premium-select:focus {
+  background: #6a4df5 !important;
+  color: #ffffff !important;
+  border-color: #8368ff !important;
+}
+select:hover {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #2563eb;
+}
+select:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #dc2626;
+}
+select:hover {
+  background: #8b5cf6; /* premium light purple */
+  color: #fff;
+  border-color: #7c3aed;
+}
+/* EDGE FIX — ΜΗΝ ΕΞΑΦΑΝΙΖΕΤΑΙ ΤΟ SELECT */
+select {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px;
+  padding: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+select:hover {
+  background: #8b5cf6 !important; /* premium light purple */
+  color: #fff !important;
+  border-color: #7c3aed !important;
+}
+/* EDGE FIX — STOP SELECT FROM DISAPPEARING */
+select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+select:hover {
+  background: #8b5cf6 !important;
+  color: #fff !important;
+  border-color: #7c3aed !important;
+}
+.store-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: var(--card);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.delete-store-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.store-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.store-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.store-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.delete-store-btn {
+  background: #c62828;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+
+.delete-store-btn:hover {
+  background: #b71c1c;
+  transform: scale(1.05);
+}
+.store-list-wrapper {
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+  max-height: 0;
+  opacity: 0;
+}
+
+.store-list-wrapper.open {
+  max-height: 600px; /* αρκετό για πολλά stores */
+  opacity: 1;
+}
+/* ⭐ Base hidden state for each store row */
+.store-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ⭐ When wrapper is open → animate rows */
+.store-list-wrapper.open .store-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ⭐ Stagger delays (iPhone-style) */
+.store-row:nth-child(1) { transition-delay: 0.05s; }
+.store-row:nth-child(2) { transition-delay: 0.10s; }
+.store-row:nth-child(3) { transition-delay: 0.15s; }
+.store-row:nth-child(4) { transition-delay: 0.20s; }
+.store-row:nth-child(5) { transition-delay: 0.25s; }
+.store-row:nth-child(6) { transition-delay: 0.30s; }
+.store-row:nth-child(7) { transition-delay: 0.35s; }
+.store-row:nth-child(8) { transition-delay: 0.40s; }
+.store-row:nth-child(9) { transition-delay: 0.45s; }
+.store-row:nth-child(10) { transition-delay: 0.50s; }
+.store-list-wrapper.open {
+  background: red !important;
+}
+/* ⭐ Wrapper slide animation */
+.store-list-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+.store-list-wrapper.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+/* ⭐ Base hidden state for each store row */
+.store-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ⭐ Delay stagger start until slide finishes */
+.store-list-wrapper.open .store-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ⭐ Stagger delays (start AFTER slide finishes) */
+.store-row:nth-child(1) { transition-delay: 0.30s; }
+.store-row:nth-child(2) { transition-delay: 0.35s; }
+.store-row:nth-child(3) { transition-delay: 0.40s; }
+.store-row:nth-child(4) { transition-delay: 0.45s; }
+.store-row:nth-child(5) { transition-delay: 0.50s; }
+.store-row:nth-child(6) { transition-delay: 0.55s; }
+.store-row:nth-child(7) { transition-delay: 0.60s; }
+.store-row:nth-child(8) { transition-delay: 0.65s; }
+.store-row:nth-child(9) { transition-delay: 0.70s; }
+.store-row:nth-child(10) { transition-delay: 0.75s; }
+.store-list-wrapper {
+  background: red !important;
+}
+.store-list-wrapper,
+.store-list-wrapper * {
+  transition: all 0.3s ease !important;
+}
+.store-list-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+.store-list-wrapper.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.store-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.store-list-wrapper.open .store-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.store-row:nth-child(1) { transition-delay: 0.30s; }
+.store-row:nth-child(2) { transition-delay: 0.35s; }
+.store-row:nth-child(3) { transition-delay: 0.40s; }
+.store-row:nth-child(4) { transition-delay: 0.45s; }
+.store-row:nth-child(5) { transition-delay: 0.50s; }
+.store-row:nth-child(6) { transition-delay: 0.55s; }
+.store-row:nth-child(7) { transition-delay: 0.60s; }
+.store-row:nth-child(8) { transition-delay: 0.65s; }
+.store-row:nth-child(9) { transition-delay: 0.70s; }
+.store-row:nth-child(10) { transition-delay: 0.75s; }
+.store-list-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+.store-list-wrapper.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.store-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.store-list-wrapper.open .store-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.store-row:nth-child(1) { transition-delay: 0.30s; }
+.store-row:nth-child(2) { transition-delay: 0.35s; }
+.store-row:nth-child(3) { transition-delay: 0.40s; }
+.store-row:nth-child(4) { transition-delay: 0.45s; }
+.store-row:nth-child(5) { transition-delay: 0.50s; }
+.store-row:nth-child(6) { transition-delay: 0.55s; }
+.store-row:nth-child(7) { transition-delay: 0.60s; }
+.store-row:nth-child(8) { transition-delay: 0.65s; }
+.store-row:nth-child(9) { transition-delay: 0.70s; }
+.store-row:nth-child(10) { transition-delay: 0.75s; }

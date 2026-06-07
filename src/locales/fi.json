@@ -1,0 +1,10 @@
+{
+  "title": "Perheen ostoslista",
+  "placeholder": "Lisää tuote...",
+  "add": "Lisää",
+  "got": "Valmis",
+  "delete": "Poista",
+  "empty": "Listasi on tyhjä.",
+  "quantity": "Määrä",
+  "select_store": "Valitse kauppa"
+}
