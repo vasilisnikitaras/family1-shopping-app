@@ -1,58 +1,59 @@
 import { useState } from "react";
 
+const API = "http://192.168.1.2:3000";
+
 export default function AddItemForm({ onAdd, stores, t }) {
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(1);
   const [storeId, setStoreId] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!name.trim() || !storeId) return;
 
-    onAdd({
-      name: name.trim(),
-      quantity: quantity.trim(),
-      store_id: storeId || null
+    await onAdd({
+      name,
+      quantity,
+      store_id: storeId
     });
 
     setName("");
-    setQuantity("");
+    setQuantity(1);
     setStoreId("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="add-item-form premium-form">
+    <form className="premium-form" onSubmit={handleSubmit}>
       <input
+        className="premium-input"
         type="text"
-        placeholder={t.placeholder}
+        placeholder={t.add_item_placeholder || "Add product..."}
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="premium-input"
       />
 
       <input
-        type="text"
-        placeholder={t.quantity}
-        value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
         className="premium-input"
+        type="number"
+        min="1"
+        value={quantity}
+        onChange={(e) => setQuantity(Number(e.target.value))}
       />
 
       <select
+        className="premium-select"
         value={storeId}
         onChange={(e) => setStoreId(e.target.value)}
-        className="premium-select"
       >
-        <option value="">{t.select_store}</option>
-
-        {stores.map((s) => (
-          <option key={s.id || s.uuid} value={s.id || s.uuid}>
-            {s.store_name}
+        <option value="">Select store</option>
+        {stores.map((store) => (
+          <option key={store.id} value={store.id}>
+            {store.store_name}
           </option>
         ))}
       </select>
 
-      <button type="submit" className="premium-btn">
+      <button className="premium-btn" type="submit">
         {t.add}
       </button>
     </form>

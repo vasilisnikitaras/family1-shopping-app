@@ -1,11 +1,10 @@
 {
   "name": "Family Shopping List",
-  "short_name": "ShoppingList",
+  "short_name": "Shopping",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#ffffff",
   "theme_color": "#6a4df5",
-  "orientation": "portrait",
   "icons": [
     {
       "src": "/pwa-192.png",

@@ -1,55 +1,31 @@
 import { useState } from "react";
 
+const API = "http://192.168.1.2:3000";
+
 export default function AddStoreForm({ onAddStore, t }) {
   const [storeName, setStoreName] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!storeName.trim()) return;
 
-    onAddStore(storeName.trim());
+    await onAddStore(storeName);
     setStoreName("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="add-store-form" style={styles.form}>
+    <form className="premium-form" onSubmit={handleSubmit}>
       <input
+        className="premium-input"
         type="text"
         placeholder={t.add_store_placeholder}
         value={storeName}
         onChange={(e) => setStoreName(e.target.value)}
-        style={styles.input}
       />
 
-      <button type="submit" style={styles.btn}>
+      <button className="premium-btn" type="submit">
         {t.add_store}
       </button>
     </form>
   );
 }
-
-const styles = {
-  form: {
-    display: "flex",
-    gap: "10px",
-    marginTop: "15px",
-    marginBottom: "10px"
-  },
-  input: {
-    flex: 1,
-    padding: "10px",
-    borderRadius: "8px",
-    border: "1px solid var(--border)",
-    background: "var(--bg2)",
-    color: "var(--text)"
-  },
-  btn: {
-    padding: "10px 16px",
-    borderRadius: "8px",
-    border: "none",
-    background: "#6a4df5",
-    color: "#fff",
-    cursor: "pointer",
-    fontWeight: 600
-  }
-};

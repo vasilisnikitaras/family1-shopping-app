@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import "./index.css";
 import "./App.css";
-import { supabase } from "./supabaseClient";
 
 import Layout from "./components/Layout";
 import Footer from "./components/Footer";
@@ -12,7 +11,7 @@ import ConfirmModal from "./components/ConfirmModal";
 import ShoppingList from "./components/ShoppingList";
 import StoreList from "./components/StoreList";
 
-// Translations (10 languages)
+// Translations
 import en from "./locales/en.json";
 import el from "./locales/el.json";
 import de from "./locales/de.json";
@@ -26,6 +25,11 @@ import ar from "./locales/ar.json";
 
 const TRANSLATIONS = { en, el, de, es, fi, fr, it, ja, zh, ar };
 
+// ===============================
+// IMPORTANT: API URL FOR MOBILE
+// ===============================
+const API = "http://192.168.1.2:3000";
+
 export default function App() {
   const FAMILY_ROOM = "vasilis_toni_billy_triantafilia_rose";
 
@@ -35,19 +39,13 @@ export default function App() {
   const [theme, setTheme] = useState("light");
   const [notification, setNotification] = useState({ message: "", type: "" });
 
-  // Item delete modal
+  // Delete modals
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
 
-  // Store delete modal ⭐
   const [storeConfirmOpen, setStoreConfirmOpen] = useState(false);
   const [storeToDelete, setStoreToDelete] = useState(null);
 
-  // Debug
-  console.log("SUPABASE URL:", import.meta.env.VITE_SUPABASE_URL);
-  console.log("SUPABASE KEY:", import.meta.env.VITE_SUPABASE_ANON_KEY);
-
-  // ⭐ Collapsible Stores
   const [showStores, setShowStores] = useState(false);
 
   // Translations
@@ -71,33 +69,30 @@ export default function App() {
     setTimeout(() => setNotification({ message: "", type: "" }), 2500);
   };
 
-  // Load items
+  // ----------------------------------------------------
+  // LOAD ITEMS
+  // ----------------------------------------------------
   const loadItems = useCallback(async () => {
-    const { data, error } = await supabase
-      .from("items_v2")
-      .select("*")
-      .eq("family_room", FAMILY_ROOM)
-      .order("created_at", { ascending: true });
-
-    if (error) {
-      console.error(error);
+    try {
+      const res = await fetch(`${API}/api/getList`);
+      const data = await res.json();
+      setItems(data);
+    } catch (err) {
+      console.error(err);
       showNotification("Failed to load items", "error");
-    } else {
-      setItems(data || []);
     }
   }, []);
 
-  // Load stores
+  // ----------------------------------------------------
+  // LOAD STORES
+  // ----------------------------------------------------
   const loadStores = useCallback(async () => {
-    const { data, error } = await supabase
-      .from("stores_v2")
-      .select("*")
-      .order("store_name", { ascending: true });
-
-    if (error) {
-      console.error("Failed to load stores:", error);
-    } else {
-      setStores(data || []);
+    try {
+      const res = await fetch(`${API}/api/getStores`);
+      const data = await res.json();
+      setStores(data);
+    } catch (err) {
+      console.error("Failed to load stores:", err);
     }
   }, []);
 
@@ -106,100 +101,110 @@ export default function App() {
     loadStores();
   }, [loadItems, loadStores]);
 
-  // Realtime items
-  useEffect(() => {
-    const channel = supabase
-      .channel("items_v2_changes")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "items_v2" },
-        () => loadItems()
-      )
-      .subscribe();
-
-    return () => supabase.removeChannel(channel);
-  }, [loadItems]);
-
-  // Add item
+  // ----------------------------------------------------
+  // ADD ITEM
+  // ----------------------------------------------------
   const handleAddItem = async ({ name, quantity, store_id }) => {
-    const { error } = await supabase.from("items_v2").insert([
-      {
-        name,
-        quantity,
-        store_id,
-        family_room: FAMILY_ROOM,
-        is_checked: false
-      }
-    ]);
+    try {
+      await fetch(`${API}/api/addListItem`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          quantity,
+          store_id,
+          family_room: FAMILY_ROOM
+        }),
+      });
 
-    if (error) {
-      console.error(error);
-      showNotification("Failed to add item", "error");
-    } else {
       showNotification("Item added", "success");
+      loadItems();
+    } catch (err) {
+      console.error(err);
+      showNotification("Failed to add item", "error");
     }
   };
 
-  // Add store
+  // ----------------------------------------------------
+  // ADD STORE
+  // ----------------------------------------------------
   const handleAddStore = async (storeName) => {
-    const { error } = await supabase.from("stores_v2").insert([
-      {
-        store_name: storeName
-      }
-    ]);
+    try {
+      await fetch(`${API}/api/addStore`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: storeName }),
+      });
 
-    if (error) {
-      console.error(error);
-      showNotification("Failed to add store", "error");
-    } else {
       showNotification("Store added", "success");
       loadStores();
+    } catch (err) {
+      console.error(err);
+      showNotification("Failed to add store", "error");
     }
   };
 
-  // ⭐ ASK delete store (opens modal)
+  // ----------------------------------------------------
+  // DELETE STORE
+  // ----------------------------------------------------
   const askDeleteStore = (store) => {
     setStoreToDelete(store);
     setStoreConfirmOpen(true);
   };
 
-  // ⭐ CONFIRM delete store
   const handleConfirmDeleteStore = async () => {
-    const { error } = await supabase
-      .from("stores_v2")
-      .delete()
-      .eq("id", storeToDelete.id);
+    try {
+      await fetch(`${API}/api/deleteStore`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: storeToDelete.id }),
+      });
 
-    if (error) {
-      console.error(error);
-      showNotification("Failed to delete store", "error");
-    } else {
       showNotification("Store deleted", "success");
       loadStores();
+    } catch (err) {
+      console.error(err);
+      showNotification("Failed to delete store", "error");
     }
 
     setStoreConfirmOpen(false);
     setStoreToDelete(null);
   };
 
-  // Toggle bought
+  // ----------------------------------------------------
+  // TOGGLE BOUGHT
+  // ----------------------------------------------------
   const handleToggleBought = async (item) => {
-    await supabase
-      .from("items_v2")
-      .update({ is_checked: !item.is_checked })
-      .eq("id", item.id);
+    await fetch(`${API}/api/toggleListItem`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: item.id,
+        checked: !item.is_checked
+      }),
+    });
+
+    loadItems();
   };
 
-  // Delete item
+  // ----------------------------------------------------
+  // DELETE ITEM
+  // ----------------------------------------------------
   const askDeleteItem = (item) => {
     setItemToDelete(item);
     setConfirmOpen(true);
   };
 
   const handleConfirmDelete = async () => {
-    await supabase.from("items_v2").delete().eq("id", itemToDelete.id);
+    await fetch(`${API}/api/deleteListItem`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: itemToDelete.id }),
+    });
+
     setConfirmOpen(false);
     setItemToDelete(null);
+    loadItems();
   };
 
   return (
@@ -230,10 +235,8 @@ export default function App() {
           </div>
         </header>
 
-        {/* ADD STORE */}
         <AddStoreForm onAddStore={handleAddStore} t={t} />
 
-        {/* ⭐ COLLAPSIBLE STORE LIST */}
         <button
           className="toggle-store-btn"
           onClick={() => setShowStores(!showStores)}
@@ -241,17 +244,14 @@ export default function App() {
           {showStores ? "Hide Stores ▲" : "Manage Stores ▼"}
         </button>
 
-        {/* ⭐ ANIMATED STORE LIST WRAPPER */}
         <div className={`store-list-wrapper ${showStores ? "open" : ""}`}>
           {showStores && (
             <StoreList stores={stores} onDelete={askDeleteStore} />
           )}
         </div>
 
-        {/* ADD ITEM */}
         <AddItemForm onAdd={handleAddItem} stores={stores} t={t} />
 
-        {/* LIST */}
         <ShoppingList
           items={items}
           onToggleBought={handleToggleBought}
@@ -265,14 +265,12 @@ export default function App() {
 
       <Notification message={notification.message} type={notification.type} />
 
-      {/* ITEM DELETE MODAL */}
       <ConfirmModal
         open={confirmOpen}
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmOpen(false)}
       />
 
-      {/* ⭐ STORE DELETE MODAL */}
       <ConfirmModal
         open={storeConfirmOpen}
         onConfirm={handleConfirmDeleteStore}

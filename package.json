@@ -4,13 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+  "dev": "vite --host",
+  "build": "vite build",
+  "lint": "eslint .",
+  "preview": "vite preview"
+},
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "@supabase/supabase-js": "^2.106.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
