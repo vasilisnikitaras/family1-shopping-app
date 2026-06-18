@@ -28,7 +28,7 @@ const TRANSLATIONS = { en, el, de, es, fi, fr, it, ja, zh, ar };
 // ===============================
 // IMPORTANT: API URL FOR MOBILE
 // ===============================
-const API = "http://192.168.1.2:3000";
+const API = "";
 
 export default function App() {
   const FAMILY_ROOM = "vasilis_toni_billy_triantafilia_rose";
