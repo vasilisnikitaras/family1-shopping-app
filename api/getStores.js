@@ -1,6 +1,6 @@
 import { sql } from "./db.js";
 
-export default async function handler(req) {
+export async function GET() {
   try {
     const rows = await sql`
       SELECT id, store_name, created_at
