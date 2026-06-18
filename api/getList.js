@@ -1,6 +1,6 @@
 import { sql } from "./db.js";
 
-export default async function handler(req) {
+export async function GET() {
   try {
     const rows = await sql`
       SELECT id, family_room, quantity, store_id, is_checked, created_at, name
@@ -9,7 +9,7 @@ export default async function handler(req) {
       ORDER BY created_at ASC;
     `;
 
-    return Response.json(rows, { status: 200 });
+    return Response.json(rows);
   } catch (error) {
     console.error("Error fetching items:", error);
     return Response.json({ error: "Failed to fetch items" }, { status: 500 });
