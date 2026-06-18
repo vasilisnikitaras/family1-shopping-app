@@ -1,11 +1,18 @@
 import { sql } from "./db.js";
 
-export default async function handler(req, res) {
+export default async function handler(req) {
   try {
+    if (req.method !== "POST") {
+      return Response.json({ error: "Method not allowed" }, { status: 405 });
+    }
+
     const { name, store_id } = await req.json();
 
     if (!name || !store_id) {
-      return res.status(400).json({ error: "Name and store_id are required" });
+      return Response.json(
+        { error: "Name and store_id are required" },
+        { status: 400 }
+      );
     }
 
     const result = await sql`
@@ -14,9 +21,12 @@ export default async function handler(req, res) {
       RETURNING *;
     `;
 
-    return res.status(200).json(result[0]);
+    return Response.json(result[0], { status: 200 });
   } catch (error) {
     console.error("Error adding product:", error);
-    return res.status(500).json({ error: "Failed to add product" });
+    return Response.json(
+      { error: "Failed to add product" },
+      { status: 500 }
+    );
   }
 }
