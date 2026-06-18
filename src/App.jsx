@@ -154,7 +154,7 @@ export default function App() {
 
   const handleConfirmDeleteStore = async () => {
     try {
-      await fetch(`${API}/api/deleteStore`, {
+        await fetch(`${API}/api/deleteStores`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: storeToDelete.id }),
