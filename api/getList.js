@@ -1,16 +1,12 @@
 import { sql } from "./db.js";
 
-export default async function handler(req, res) {
+export default async function handler(req) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return Response.json({ error: "Method not allowed" }, { status: 405 });
   }
 
   try {
-    const { family_id } = JSON.parse(req.body);
-
-    if (!family_id) {
-      return res.status(400).json({ error: "family_id is required" });
-    }
+    const { family_id } = await req.json();
 
     const rows = await sql`
       SELECT id, name, quantity, store_id, family_id, is_checked, created_at
@@ -19,9 +15,9 @@ export default async function handler(req, res) {
       ORDER BY created_at DESC;
     `;
 
-    return res.status(200).json(rows);
+    return Response.json(rows, { status: 200 });
   } catch (error) {
     console.error("Error fetching items:", error);
-    return res.status(500).json({ error: "Failed to fetch items" });
+    return Response.json({ error: "Failed to fetch items" }, { status: 500 });
   }
 }
