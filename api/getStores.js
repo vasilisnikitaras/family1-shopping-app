@@ -1,16 +1,27 @@
 import { sql } from "./db.js";
 
-export async function GET() {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
   try {
+    const { family_id } = JSON.parse(req.body);
+
+    if (!family_id) {
+      return res.status(400).json({ error: "family_id is required" });
+    }
+
     const rows = await sql`
-      SELECT id, store_name, created_at
-      FROM stores_v2
-      ORDER BY store_name ASC;
+      SELECT id, name, family_id
+      FROM stores
+      WHERE family_id = ${family_id}
+      ORDER BY name ASC;
     `;
 
-    return Response.json(rows, { status: 200 });
+    return res.status(200).json(rows);
   } catch (error) {
     console.error("Error fetching stores:", error);
-    return Response.json({ error: "Failed to fetch stores" }, { status: 500 });
+    return res.status(500).json({ error: "Failed to fetch stores" });
   }
 }

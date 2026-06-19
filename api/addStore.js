@@ -1,22 +1,25 @@
 import { sql } from "./db.js";
 
-export default async function handler(req) {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
   try {
-    if (req.method !== "POST") {
-      return Response.json({ error: "Method not allowed" }, { status: 405 });
+    const { name, family_id } = JSON.parse(req.body);
+
+    if (!name || !family_id) {
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const { name } = await req.json();
-
-    const rows = await sql`
-      INSERT INTO stores_v2 (store_name)
-      VALUES (${name})
-      RETURNING id, store_name, created_at;
+    await sql`
+      INSERT INTO stores (name, family_id)
+      VALUES (${name}, ${family_id})
     `;
 
-    return Response.json(rows[0], { status: 200 });
+    return res.status(200).json({ success: true });
   } catch (error) {
     console.error("Error adding store:", error);
-    return Response.json({ error: "Failed to add store" }, { status: 500 });
+    return res.status(500).json({ error: "Failed to add store" });
   }
 }

@@ -1,25 +1,30 @@
 import { sql } from "./db.js";
 
-export default async function handler(req) {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
   try {
-    if (req.method !== "POST") {
-      return Response.json({ error: "Method not allowed" }, { status: 405 });
+    const { id, family_id } = JSON.parse(req.body);
+
+    if (!id || !family_id) {
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const { id } = await req.json();
-
-    if (!id) {
-      return Response.json({ error: "Item ID is required" }, { status: 400 });
-    }
-
-    await sql`
+    const result = await sql`
       DELETE FROM items_v2
-      WHERE id = ${id};
+      WHERE id = ${id} AND family_id = ${family_id}
+      RETURNING id;
     `;
 
-    return Response.json({ success: true }, { status: 200 });
+    if (result.length === 0) {
+      return res.status(404).json({ error: "Item not found or not allowed" });
+    }
+
+    return res.status(200).json({ success: true });
   } catch (error) {
     console.error("Error deleting item:", error);
-    return Response.json({ error: "Failed to delete item" }, { status: 500 });
+    return res.status(500).json({ error: "Failed to delete item" });
   }
 }

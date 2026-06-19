@@ -28,11 +28,12 @@ const TRANSLATIONS = { en, el, de, es, fi, fr, it, ja, zh, ar };
 // ===============================
 // IMPORTANT: API URL FOR MOBILE
 // ===============================
-const API = "";
+const API = "https://family1-shopping-app-feqq-h45nz5fla-vasilisnikitaras-projects.vercel.app";
+
+// Multi-family ID (temporary until login system)
+const FAMILY_ID = 1;
 
 export default function App() {
-  const FAMILY_ROOM = "vasilis_toni_billy_triantafilia_rose";
-
   const [items, setItems] = useState([]);
   const [stores, setStores] = useState([]);
   const [language, setLanguage] = useState("en");
@@ -70,11 +71,16 @@ export default function App() {
   };
 
   // ----------------------------------------------------
-  // LOAD ITEMS
+  // LOAD ITEMS (POST + family_id)
   // ----------------------------------------------------
   const loadItems = useCallback(async () => {
     try {
-      const res = await fetch(`${API}/api/getList`);
+      const res = await fetch(`${API}/api/getList`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ family_id: FAMILY_ID }),
+      });
+
       const data = await res.json();
       setItems(data);
     } catch (err) {
@@ -84,11 +90,16 @@ export default function App() {
   }, []);
 
   // ----------------------------------------------------
-  // LOAD STORES
+  // LOAD STORES (POST + family_id)
   // ----------------------------------------------------
   const loadStores = useCallback(async () => {
     try {
-      const res = await fetch(`${API}/api/getStores`);
+      const res = await fetch(`${API}/api/getStores`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ family_id: FAMILY_ID }),
+      });
+
       const data = await res.json();
       setStores(data);
     } catch (err) {
@@ -102,7 +113,7 @@ export default function App() {
   }, [loadItems, loadStores]);
 
   // ----------------------------------------------------
-  // ADD ITEM
+  // ADD ITEM (POST + family_id)
   // ----------------------------------------------------
   const handleAddItem = async ({ name, quantity, store_id }) => {
     try {
@@ -113,7 +124,7 @@ export default function App() {
           name,
           quantity,
           store_id,
-          family_room: FAMILY_ROOM
+          family_id: FAMILY_ID,
         }),
       });
 
@@ -126,14 +137,17 @@ export default function App() {
   };
 
   // ----------------------------------------------------
-  // ADD STORE
+  // ADD STORE (POST + family_id)
   // ----------------------------------------------------
   const handleAddStore = async (storeName) => {
     try {
       await fetch(`${API}/api/addStore`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: storeName }),
+        body: JSON.stringify({
+          name: storeName,
+          family_id: FAMILY_ID,
+        }),
       });
 
       showNotification("Store added", "success");
@@ -145,7 +159,7 @@ export default function App() {
   };
 
   // ----------------------------------------------------
-  // DELETE STORE
+  // DELETE STORE (POST + family_id)
   // ----------------------------------------------------
   const askDeleteStore = (store) => {
     setStoreToDelete(store);
@@ -154,10 +168,13 @@ export default function App() {
 
   const handleConfirmDeleteStore = async () => {
     try {
-        await fetch(`${API}/api/deleteStores`, {
+      await fetch(`${API}/api/deleteStores`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: storeToDelete.id }),
+        body: JSON.stringify({
+          id: storeToDelete.id,
+          family_id: FAMILY_ID,
+        }),
       });
 
       showNotification("Store deleted", "success");
@@ -172,7 +189,7 @@ export default function App() {
   };
 
   // ----------------------------------------------------
-  // TOGGLE BOUGHT
+  // TOGGLE BOUGHT (POST + family_id)
   // ----------------------------------------------------
   const handleToggleBought = async (item) => {
     await fetch(`${API}/api/toggleListItem`, {
@@ -180,7 +197,8 @@ export default function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: item.id,
-        checked: !item.is_checked
+        checked: !item.is_checked,
+        family_id: FAMILY_ID,
       }),
     });
 
@@ -188,7 +206,7 @@ export default function App() {
   };
 
   // ----------------------------------------------------
-  // DELETE ITEM
+  // DELETE ITEM (POST + family_id)
   // ----------------------------------------------------
   const askDeleteItem = (item) => {
     setItemToDelete(item);
@@ -199,7 +217,10 @@ export default function App() {
     await fetch(`${API}/api/deleteListItem`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: itemToDelete.id }),
+      body: JSON.stringify({
+        id: itemToDelete.id,
+        family_id: FAMILY_ID,
+      }),
     });
 
     setConfirmOpen(false);
