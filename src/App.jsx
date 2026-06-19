@@ -28,7 +28,8 @@ const TRANSLATIONS = { en, el, de, es, fi, fr, it, ja, zh, ar };
 // ===============================
 // IMPORTANT: API URL FOR MOBILE
 // ===============================
-const API = "https://family1-shopping-app-feqq-h45nz5fla-vasilisnikitaras-projects.vercel.app";
+const API = "https://family1-shopping-app-feqq.vercel.app";
+
 
 // Multi-family ID (temporary until login system)
 const FAMILY_ID = 1;
